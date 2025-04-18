@@ -1,6 +1,7 @@
 {
     'name': 'SPA Appointment in POS',
     'Version': '17.0',
+    "category": 'Point of Sale',
     'summary':'SPA - POS Appointment Booking is a custom Odoo 17.0 integration that enables  appointment'
               ' scheduling directly from the Point of Sale (POS) interface. It enhances customer experience by'
               ' linking service-based products with real-time appointment booking, calendar integration, and '
@@ -31,8 +32,7 @@
     'installable': True,
     'auto_install': False,
     'application': False,
-    'images':['description/banner.png',
-              ],
+    'images':['description/banner.png'],
     'price':125.0,
     'currency': 'USD',
 }
