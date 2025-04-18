@@ -31,7 +31,7 @@
     'installable': True,
     'auto_install': False,
     'application': False,
-    'images':['description/pos_icon.jpeg',
+    'images':['description/banner.png',
               ],
     'price':125.0,
     'currency': 'USD',
