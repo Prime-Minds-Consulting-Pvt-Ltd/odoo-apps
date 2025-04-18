@@ -32,7 +32,7 @@
     'installable': True,
     'auto_install': False,
     'application': False,
-    'images':['description/banner.png'],
+    'images':['static/description/banner.png'],
     'price':125.0,
     'currency': 'USD',
 }
