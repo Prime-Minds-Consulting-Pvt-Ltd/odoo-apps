@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="nhcl_pos_sale.CustomButtonPopup">
+        <div class="popup popup-textarea"
+             style="width: 80% !important; max-width: 700px; margin: auto; border-radius: 16px; overflow: hidden; box-shadow: 0 10px 20px rgba(0,0,0,0.1); font-family: 'Segoe UI', Roboto, sans-serif; background: white;">
+            <!-- Header with soft violet gradient -->
+            <div class="modal-header"
+                 style="background: linear-gradient(145deg, #f5f0ff 0%, #e6d6ff 100%); color: #4b2e83; padding: 18px 20px; border-bottom: 3px solid #8a63d2; position: relative;">
+                <h4 class="modal-title"
+                    style="margin: 0; font-size: 26px; font-weight: 600; letter-spacing: 0.5px; position: relative;">
+                    <t t-esc="props.title"/>
+                </h4>
+            </div>
+
+            <!-- Main content area with white background -->
+            <div class="modal-body" style="display: flex; min-height: 450px; background: white;">
+                <!-- Calendar Panel -->
+                <div style="flex: 1; padding: 15px; border-right: 1px solid #e0e0e0; position: relative;">
+                    <div style="position: relative; z-index: 2;">
+                        <!-- Month Navigation -->
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid #e0e0e0;">
+                            <button t-on-click="changeMonthBefore"
+                                    style="background: #f5f0ff; border: none; color: #8a63d2; width: 40px; height: 10px; border-radius: 50%; font-size: 20px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center;"
+                                    onmouseover="this.style.background='#e6d6ff'; this.style.transform='scale(1.1)'"
+                                    onmouseout="this.style.background='#f5f0ff'; this.style.transform='scale(1)'">
+                                &#10094;
+                            </button>
+                            <h3 style="margin: 0; color: #4b2e83; font-size: 18px; font-weight: 600; margin-right: 20px;"> <!-- Added margin-right for spacing -->
+                                <t t-esc="getMonthName(state.month)"/>
+                                <br>
+
+                                </br>
+                                <t t-esc="state.year"/>
+                            </h3>
+                            <button t-on-click="changeMonthAfter"
+                                    style="background: #f5f0ff; border: none; color: #8a63d2; width: 40px; height: 15px; border-radius: 50%; font-size: 20px; cursor: pointer; transition: all 0.3s; display: flex; align-items: center; justify-content: center;"
+                                    onmouseover="this.style.background='#e6d6ff'; this.style.transform='scale(1.1)'"
+                                    onmouseout="this.style.background='#f5f0ff'; this.style.transform='scale(1)'">
+                                &#10095;
+                            </button>
+                        </div>
+
+                        <!-- Day headers -->
+                        <div style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; margin-bottom: 15px;">
+                            <div style="text-align: center; color: #8a63d2; font-weight: 600; font-size: 16px;">SUN</div>
+                            <div style="text-align: center; color: #8a63d2; font-weight: 600; font-size: 16px;">MON</div>
+                            <div style="text-align: center; color: #8a63d2; font-weight: 600; font-size: 16px;">TUE</div>
+                            <div style="text-align: center; color: #8a63d2; font-weight: 600; font-size: 16px;">WED</div>
+                            <div style="text-align: center; color: #8a63d2; font-weight: 600; font-size: 16px;">THU</div>
+                            <div style="text-align: center; color: #8a63d2; font-weight: 600; font-size: 16px;">FRI</div>
+                            <div style="text-align: center; color: #8a63d2; font-weight: 600; font-size: 16px;">SAT</div>
+                        </div>
+
+                        <!-- Calendar grid -->
+                        <div id="daysGrid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px;">
+                            <t t-if="state.dates.length > 0">
+                               <t t-foreach="state.dates" t-as="dateObj" t-key="dateObj.date + '_' + dateObj.id">
+                                    <div class="date-select"
+                                         t-att-style="dateObj.selectable ?
+                                             'text-align: center; padding: 12px 0; background: white; border: 1px solid #e0e0e0; color: #4b2e83; border-radius: 8px; cursor: pointer; transition: all 0.3s; font-weight: 500;' :
+                                             'text-align: center; padding: 12px 0; background: white; border: 1px solid #f0f0f0; color: #aaa; border-radius: 8px;'"
+                                         t-on-click="(event) => dateObj.selectable and selectDate(dateObj.date, event)"
+                                         t-att-class="'date-select ' + (dateObj.selectable ? 'selectable' : 'non-selectable')"
+                                         onmouseover="if(this.classList.contains('selectable')) { this.style.background='white'; this.style.transform='scale(1.05)'; this.style.boxShadow='0 5px 15px rgba(138, 99, 210, 0.1)'; }"
+                                         onmouseout="if(this.classList.contains('selectable')) { this.style.background='white'; this.style.transform='scale(1)'; this.style.boxShadow='none'; }">
+                                        <t t-if="dateObj.date">
+                                            <span t-esc="dateObj.date" style="font-size: 16px;"/>
+                                        </t>
+                                    </div>
+                                </t>
+                            </t>
+                            <t t-else="">
+                                <div style="grid-column: span 7; text-align: center; color: #666; padding: 20px; font-size: 16px;">
+                                    No dates available
+                                </div>
+                            </t>
+                        </div>
+
+<!--                        &lt;!&ndash; Selected date display &ndash;&gt;-->
+<!--                        <div style="margin-top: 25px; padding: 15px; background: #f5f0ff; border-radius: 12px; border: 1px dashed #8a63d2; text-align: center;">-->
+<!--                            <div style="color: #8a63d2; font-size: 14px; margin-bottom: 5px;">SELECTED DATE</div>-->
+<!--                            <div style="color: #4b2e83; font-size: 18px; font-weight: 600;">-->
+<!--                                <t t-esc="state.selectedDate ? state.selectedDate : 'Not selected'"/>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+                </div>
+
+                <!-- Booking Panel -->
+                <div style="flex: 1.5; padding: 15px; position: relative;">
+                    <div style="position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column;">
+                        <!-- Employee Selection -->
+                        <div style="margin-bottom: 10px;">
+                            <label style="display: block; color: #4b2e83; font-size: 16px; font-weight: 600; margin-bottom: 10px; letter-spacing: 0.5px;">
+                                SELECT EMPLOYEE
+                            </label>
+                            <div style="position: relative;">
+                                <select id="conciergeSelect" t-on-change="onConciergeChange"
+                                        style="width: 100%; padding: 14px 15px; background: white; color: #4b2e83; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 16px; appearance: none; cursor: pointer; transition: all 0.3s;"
+                                        onmouseover="this.style.borderColor='#8a63d2'; this.style.boxShadow='0 0 0 2px rgba(138, 99, 210, 0.1)'"
+                                        onmouseout="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none'">
+                                    <option value="" disabled="disabled" selected="selected" style="color: #999;">Select Employee</option>
+                                    <t t-foreach="state.conciergeOptions" t-as="concierge" t-key="concierge.name">
+                                        <option t-att-id="'concierge_option_' + concierge.id"
+                                                t-att-value="concierge.name" t-esc="concierge.name"
+                                                style="color: #4b2e83;"/>
+                                    </t>
+                                </select>
+                                <div style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #8a63d2; pointer-events: none;">
+                                    ▼
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Resource Selection -->
+                        <div style="margin-bottom: 10px;">
+                            <label style="display: block; color: #4b2e83; font-size: 16px; font-weight: 600; margin-bottom: 10px; letter-spacing: 0.5px;">
+                                SELECT RESOURCE
+                            </label>
+                            <div style="position: relative;">
+                                <select id="resourceSelect" t-on-change="onResourceChange"
+                                        style="width: 100%; padding: 14px 15px; background: white; color: #4b2e83; border: 1px solid #e0e0e0; border-radius: 10px; font-size: 16px; appearance: none; cursor: pointer; transition: all 0.3s;"
+                                        onmouseover="this.style.borderColor='#8a63d2'; this.style.boxShadow='0 0 0 2px rgba(138, 99, 210, 0.1)'"
+                                        onmouseout="this.style.borderColor='#e0e0e0'; this.style.boxShadow='none'">
+                                    <option value="" disabled="disabled" selected="selected" style="color: #999;">Select Resource</option>
+                                    <t t-foreach="state.resourceOptions" t-as="resource" t-key="resource.name">
+                                        <option t-att-id="'resource_option_' + resource.id" t-att-value="resource.name"
+                                                t-esc="resource.name" style="color: #4b2e83;"/>
+                                    </t>
+                                </select>
+                                <div style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); color: #8a63d2; pointer-events: none;">
+                                    ▼
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Duration Display -->
+                        <t t-if="state.slotDuration">
+                        <div style="margin-bottom: 20px; padding: 15px; background: #f5f0ff; border-radius: 10px; border: 1px solid #006400; text-align: center;">
+                            <div style="color: #8a63d2; font-size: 14px; margin-bottom: 5px;">APPOINTMENT DURATION</div>
+                            <div style="color: #4b2e83; font-size: 22px; font-weight: 600;">
+                                <t t-esc="state.slotDuration"/>
+                                <span style="font-size: 16px; color: #8a63d2;">hours</span>
+                            </div>
+                        </div>
+                        </t>
+
+                        <!-- Time Slots -->
+                        <div style="flex-grow: 1; display: flex; flex-direction: column;">
+    <div style="color: #2f2f2f; font-size: 18px; font-weight: 600; margin-bottom: 15px; letter-spacing: 0.5px; text-align: center;">
+        AVAILABLE TIME SLOTS
+    </div>
+
+                            <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 15px; overflow-y: auto; padding-right: 5px;">
+        <t t-if="state.selectedDaySlots and state.selectedDaySlots.length > 0">
+            <t t-foreach="state.selectedDaySlots" t-as="slot" t-key="slot.hour + '_' + slot.id">
+               <button t-attf-id="slot_button_{{slot.hour}}" class="time-slot-btn"
+                       t-att-style="slot.isBooked ?
+                       'background: #444444; color: #2f2f2f; border: 1px solid #2f2f2f; text-decoration: line-through;' :
+                       'background: white; color: #4b2e83; border: 1px solid #e0e0e0;'"
+                       t-on-click="() => selectTimeSlot(slot, 'slot_button_' + slot.hour)"
+                       style="padding: 15px; border-radius: 10px; font-size: 16px; font-weight: 600; transition: all 0.3s; cursor: pointer; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
+                   <t t-esc="slot.hour"/>
+               </button>
+
+            </t>
+        </t>
+                                <t t-else="">
+            <div style="grid-column: 1 / -1; text-align: center; color: #999; font-size: 15px; padding: 20px 0;">
+                Please select a date to view available time slots
+            </div>
+        </t>
+    </div>
+</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer with action buttons -->
+            <div class="modal-footer"
+                 style="background: white; padding: 10px 15px; border-top: 1px solid #e0e0e0; display: flex; justify-content: space-between; align-items: center;">
+                <button class="btn-cancel" t-on-click="onCancel"
+                        style="background: white; color: #666; border: 1px solid #e0e0e0; padding: 10px 10px; font-size: 16px; font-weight: 500; border-radius: 10px; transition: all 0.3s;"
+                        onmouseover="this.style.color='#4b2e83'; this.style.borderColor='#8a63d2'; this.style.transform='translateY(-2px)'"
+                        onmouseout="this.style.color='#666'; this.style.borderColor='#e0e0e0'; this.style.transform='translateY(0)'">
+                    <t t-esc="props.cancelText"/>
+                </button>
+
+                <button class="btn-confirm" t-on-click="confirm"
+                        style="background: linear-gradient(135deg, #8a63d2 0%, #6a3cb5 100%); color: white; border: none; padding: 10px 25px; font-size: 16px; font-weight: 600; border-radius: 10px; transition: all 0.3s; box-shadow: 0 4px 15px rgba(138, 99, 210, 0.3);"
+                        onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(138, 99, 210, 0.4)'"
+                        onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(138, 99, 210, 0.3)'">
+                    <t t-esc="props.confirmText"/>
+                </button>
+            </div>
+        </div>
+
+        <style>
+            select:focus {
+                outline: none;
+                border-color: #8a63d2 !important;
+                box-shadow: 0 0 0 2px rgba(138, 99, 210, 0.2) !important;
+            }
+
+            ::-webkit-scrollbar {
+                width: 6px;
+            }
+
+            ::-webkit-scrollbar-track {
+                background: #f0f0f0;
+                border-radius: 3px;
+            }
+
+            ::-webkit-scrollbar-thumb {
+                background: #d0c0e8;
+                border-radius: 3px;
+            }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #8a63d2;
+            }
+
+            .time-slot-btn:active {
+                transform: scale(0.95) !important;
+            }
+        </style>
+    </t>
+</templates>

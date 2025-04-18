@@ -1,0 +1,34 @@
+<templates id="template" xml:space="preserve">
+    <t t-name="Orderline" t-inherit="point_of_sale.Orderline" t-inherit-mode="extension" owl="1">
+         <xpath expr="//ul[hasclass('info-list')]" position="inside">
+
+
+              <t t-if="line.appointDate">
+                <li>Appointment Date: <span t-esc="line.appointDate"/></li>
+            </t>
+
+            <t t-if="line.appointTime">
+                <li>Appointment Time: <span t-esc="line.appointTime"/></li>
+            </t>
+
+            <t t-if="line.conciergeName">
+                <li>Employee: <span t-esc="line.conciergeName"/></li>
+            </t>
+
+            <t t-if="line.resourceName">
+                <li>Resource: <span t-esc="line.resourceName"/></li>
+            </t>
+
+<!--                Appointment Date: <span t-esc="line.appointDate"/>-->
+<!--                <br/>-->
+
+
+<!--                Appointment Time: <span t-esc="line.appointTime"/>-->
+<!--                <br/>-->
+<!--                Employee : <span t-esc="line.conciergeName" />-->
+<!--             <br/>-->
+<!--             Resource : <span t-esc="line.resourceName" />-->
+
+        </xpath>
+    </t>
+</templates>

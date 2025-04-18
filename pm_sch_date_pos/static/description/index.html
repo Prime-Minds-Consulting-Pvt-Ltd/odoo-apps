@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Odoo App Demo</title>
+</head>
+<body style="font-family: Arial; text-align: center;">
+
+    <h2>🎥 Odoo Module Video Demo</h2>
+
+    <!-- Embedded YouTube video -->
+    <iframe width="100%" height="350"
+        src="https://www.youtube.com/embed/ruEQPQX90fI"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen>
+    </iframe>
+
+    <h3 style="margin-top: 30px;">
+        This document provides a detailed overview of the functional workflow for integrating appointment booking within the Point of Sale (POS) system in Odoo.
+    </h3>
+
+    <img src="odoo.gif" alt="App Demo GIF" style="width:80%; max-width: 1200px;">
+<!--    <video  >-->
+<!--        <source src="odoo.mp4" type="video/mp4">-->
+<!--        Your browser does not support the video tag.-->
+<!--    </video>-->
+
+    <table style="width: 100%; text-align: center;">
+        <tr>
+            <td style="width: 50%; padding: 10px; vertical-align: top;">
+                <h1 style="margin-top: 30px;">Product Configuration: Booking Fees</h1>
+                <img src="pos1.jpg" alt="POS icon" style="width: 90%;height: 600px; border: 1px solid #ccc;">
+                <h2>
+                    <ul style="text-align: left; margin-top: 20px;">
+                        <li>Navigate to Sales &gt; Products and create a new product.</li>
+                        <li>Set the Product Type to <strong>Booking Fees</strong>.</li>
+                        <li>Enable the <strong>Available in POS</strong> option to ensure visibility in the POS interface.</li>
+                    </ul>
+                </h2>
+            </td>
+        </tr>
+
+        <tr>
+
+            <td style="width: 50%; padding: 10px; vertical-align: top;">
+                <h1 style="margin-top: 30px;">Appointment Setup</h1>
+                <img src="pos2.png" alt="POS Icon" style="width: 90%; height: 600px; border: 1px solid #ccc;">
+                <h2>
+                    <ul style="text-align: left; margin-top: 20px;">
+                    <li>Access the <strong>Appointments</strong> module and create a new appointment record.</li>
+                    <li>Under the <strong>Upfront Payment</strong> field, select the newly created product.</li>
+                    <li>Assign the relevant <strong>Employee</strong> and <strong>Resource</strong> to the appointment.</li>
+                    <li>Specify the <strong>Scheduled Date and Time</strong> for the appointment.</li>
+                </ul>
+                </h2>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td style="width: 50%; padding: 10px; vertical-align: top;">
+                <h1 style="margin-top: 30px;">POS Interaction – Appointment Booking Flow</h1>
+                <img src="pos3.png" alt="Screenshot 1" style="width: 90%; height: 600px; border: 1px solid #ccc;">
+                <h2>
+                    <ul style="text-align: left; margin-top: 20px;">
+                    <li>During an active POS session, upon selecting the product (for products having an appointment):
+                        <ul>
+                            <li>A modal popup will be triggered to facilitate appointment booking.</li>
+                            <li>The popup interface will allow:
+                                <ul>
+                                    <li>Calendar View for selecting a date</li>
+                                    <li>Selection of available Resources</li>
+                                    <li>Display of the assigned Employee</li>
+                                    <li>Available Time Slots based on selected criteria</li>
+                                </ul>
+                            </li>
+                            <li>Once the date and time slot are confirmed, the appointment data is linked with the POS order.</li>
+                        </ul>
+                    </li>
+                </ul>
+                </h2>
+            </td>
+        </tr>
+
+        <tr>
+            <td style="width: 50%; padding: 10px; vertical-align: top;">
+                <img src="pos4.png" alt="Screenshot 1" style="width: 90%; height: 600px; border: 1px solid #ccc;">
+            </td>
+        </tr>
+
+
+
+        <tr>
+            <td style="width: 50%; padding: 10px; vertical-align: top;">
+                <h1 style="margin-top: 30px;">POS Order Line Enhancements</h1>
+                <img src="pos5.png" alt="POS Icon" style="width: 90%;height: 600px; border: 1px solid #ccc;">
+                <h2>
+                    <ul style="text-align: left; margin-top: 20px;">
+                    <li>The POS Order Line will be augmented to include the following appointment-related metadata:
+                        <ul>
+                            <li>Appointment Date</li>
+                            <li>Appointment Time</li>
+                            <li>Assigned Employee (Concierge)</li>
+                            <li>Selected Resource</li>
+                        </ul>
+                    </li>
+                </ul>
+                </h2>
+            </td>
+        </tr>
+
+        <tr>
+            <td style="width: 50%; padding: 10px; vertical-align: top;">
+                <h1 style="margin-top: 30px;">Customer Communication</h1>
+                <img src="pos6.png" alt="POS Icon" style="width: 90%;height: 600px; border: 1px solid #ccc;">
+                <h2>
+                    <ul style="text-align: left; margin-top: 20px;">
+                    <li>Upon finalizing the POS order:
+                        <ul>
+                            <li>An automated email notification will be sent to the customer.</li>
+                            <li>Email contents will include:
+                                <ul>
+                                    <li>Appointment Date and Time</li>
+                                    <li>Product Information</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                </h2>
+            </td>
+        </tr>
+
+        <tr>
+            <td style="width: 50%; padding: 10px; vertical-align: top;">
+                <h1 style="margin-top: 30px;">Appointment Creation in Calendar</h1>
+                <img src="pos7.png" alt="POS Icon" style="width: 90%; height: 600px; border: 1px solid #ccc;">
+                <h2>
+                    <ul style="text-align: left; margin-top: 20px;">
+                    <li>An appointment entry will be created in the Calendar module.</li>
+                    <li>The entry will reflect the selected Date and Time of the booking.</li>
+                    <li>This helps in tracking and managing upcoming appointments efficiently.</li>
+                </ul>
+                </h2>
+            </td>
+        </tr>
+
+        <tr>
+            <td style="width: 50%; padding: 10px; vertical-align: top;">
+                <h1 style="margin-top: 30px;">Appointment Visibility in Profile Section</h1>
+                <img src="pos8.png" alt="POS Icon" style="width: 90%; height: 600px; border: 1px solid #ccc;">
+                <h2>
+                    <ul style="text-align: left; margin-top: 20px;">
+                    <li>Appointments are available in the Profile section:
+                        <ul>
+                            <li>Each appointment entry will provide Scheduled Date &amp; Time</li>
+                        </ul>
+                    </li>
+                </ul>
+                </h2>
+
+            </td>
+        </tr>
+    </table>
+
+    <h4>More info/support contact here :<a href="https://www.primeminds.co/contactus" > https://www.primeminds.co/contactus</a></h4>
+
+</body>
+</html>
