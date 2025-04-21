@@ -28,7 +28,7 @@
     'company':'Prime Minds Consulting Pvt ltd',
     'maintainer':'Prime Minds Consulting Pvt ltd',
     'website':'https://www.primeminds.co',
-    'license':'LGPL-3',
+    'license':'OPL-1',
     'installable': True,
     'auto_install': False,
     'application': False,
