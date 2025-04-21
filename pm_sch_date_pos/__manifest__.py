@@ -1,5 +1,5 @@
 {
-    'name': 'SPA Appointment in POS',
+    'name': 'Spa Appointment and Salon POS',
     'Version': '17.0',
     "category": 'Point of Sale',
     'summary':'SPA - POS Appointment Booking is a custom Odoo 17.0 integration that enables  appointment'
